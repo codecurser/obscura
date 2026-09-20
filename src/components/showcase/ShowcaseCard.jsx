@@ -2,18 +2,25 @@ import React, { useState } from 'react';
 import { useModal } from '../../context/ModalContext';
 import { useViewfinder } from '../../context/ViewfinderContext';
 
-export default function ShowcaseCard({ photo, list, index = 0, isCollageView = true }) {
+export default function ShowcaseCard({
+  photo,
+  list,
+  index = 0,
+  isCollageView = true,
+  isSpotlighted = false
+}) {
   const { openLightbox, photoLikes, likePhoto } = useModal();
-  const { playDialTick } = useViewfinder();
+  const { playDialTick, playShutter } = useViewfinder();
   const [isHeartPopping, setIsHeartPopping] = useState(false);
 
   const handleClick = () => {
-    playDialTick();
+    playShutter();
     openLightbox(photo, list);
   };
 
   const handleLike = (e) => {
     e.stopPropagation();
+    playDialTick();
     likePhoto(photo.id);
     setIsHeartPopping(true);
     setTimeout(() => setIsHeartPopping(false), 400);
@@ -21,7 +28,7 @@ export default function ShowcaseCard({ photo, list, index = 0, isCollageView = t
 
   const likes = photoLikes[photo.id] !== undefined ? photoLikes[photo.id] : photo.likes;
 
-  // Compute collage spanning logic
+  // Collage Spanning
   let collageSpanClass = '';
   if (isCollageView) {
     if (index === 0 || index === 7 || index === 11) {
@@ -33,16 +40,21 @@ export default function ShowcaseCard({ photo, list, index = 0, isCollageView = t
     }
   }
 
+  // Assign staggered organic float class
+  const floatClass = isCollageView ? `float-live-${(index % 3) + 1}` : '';
   const aspectClass = photo.aspect === 'landscape' ? 'landscape' : (photo.aspect === 'square' ? 'square' : '');
 
   return (
     <div
-      className={`showcase-item collage-animated-enter ${aspectClass} ${collageSpanClass}`}
+      className={`showcase-item collage-animated-enter ${aspectClass} ${collageSpanClass} ${floatClass} ${isSpotlighted ? 'spotlight-active-card' : ''}`}
       onClick={handleClick}
       style={{
-        animationDelay: `${Math.min(index * 45, 600)}ms`
+        animationDelay: `${Math.min(index * 50, 600)}ms`
       }}
     >
+      {/* Physical Photomount Washi-Tape Accent */}
+      {isCollageView && <div className="card-tape-accent"></div>}
+
       <img
         src={photo.imgSrc}
         alt={photo.title}
@@ -50,12 +62,21 @@ export default function ShowcaseCard({ photo, list, index = 0, isCollageView = t
         loading="lazy"
         decoding="async"
       />
+      
       <div className="showcase-overlay"></div>
       <div className="laser-scanner-line"></div>
-      
+
+      {/* Live Spotlight Badge */}
+      {isSpotlighted && (
+        <div className="spotlight-live-pill">
+          <span className="pulse-dot"></span> LIVE SPOTLIGHT
+        </div>
+      )}
+
       {/* Reticle Focus Indicator on Hover */}
       <div className="showcase-reticle-hover">
-        [ ✛ ]
+        <span>[ ✛ ]</span>
+        <span className="reticle-label">LOCKED • {photo.shutter || '1/500s'}</span>
       </div>
 
       <div className="showcase-hud-top">
@@ -66,11 +87,13 @@ export default function ShowcaseCard({ photo, list, index = 0, isCollageView = t
       <div className="showcase-info-bottom">
         <h3 className="showcase-title">{photo.title}</h3>
         <div className="showcase-meta">
-          <span className="showcase-optic-spec">{photo.opticSpec}</span>
+          <span className="showcase-optic-spec">
+            {photo.camera} • {photo.opticSpec}
+          </span>
           <button
             className={`showcase-likes ${isHeartPopping ? 'heart-pop-active' : ''}`}
             onClick={handleLike}
-            title="Like this photo"
+            title="Like this photograph"
             aria-label="Like"
           >
             ♥ {likes}

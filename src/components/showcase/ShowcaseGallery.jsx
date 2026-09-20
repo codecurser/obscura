@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { showcasePhotos } from '../../data/showcaseData';
 import ShowcaseCard from './ShowcaseCard';
 import { useViewfinder } from '../../context/ViewfinderContext';
@@ -7,6 +7,8 @@ import { useModal } from '../../context/ModalContext';
 export default function ShowcaseGallery() {
   const [activeFilter, setActiveFilter] = useState('all');
   const [layoutMode, setLayoutMode] = useState('collage'); // 'collage' | 'grid'
+  const [spotlightIndex, setSpotlightIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
   const { playDialTick } = useViewfinder();
   const { openLightbox } = useModal();
 
@@ -20,6 +22,7 @@ export default function ShowcaseGallery() {
 
   const handleFilterChange = (filterKey) => {
     setActiveFilter(filterKey);
+    setSpotlightIndex(0);
     playDialTick();
   };
 
@@ -32,17 +35,28 @@ export default function ShowcaseGallery() {
     ? showcasePhotos
     : showcasePhotos.filter((p) => p.genre === activeFilter);
 
-  // Duplicated list for seamless infinite horizontal filmstrip
+  // Automatic Live Spotlight Cycle (every 4.5s, pauses on hover)
+  useEffect(() => {
+    if (isHovered || filteredPhotos.length === 0) return;
+
+    const interval = setInterval(() => {
+      setSpotlightIndex((prev) => (prev + 1) % filteredPhotos.length);
+    }, 4500);
+
+    return () => clearInterval(interval);
+  }, [isHovered, filteredPhotos.length]);
+
+  // Duplicated list for continuous infinite horizontal filmstrip
   const filmstripPhotos = [...showcasePhotos, ...showcasePhotos];
 
   return (
     <section className="showcase-section section-spacing" id="showcase">
       <div className="container">
         <div className="section-header center">
-          <span className="section-tag"><span className="pulse-dot"></span> CURATED EXHIBITION</span>
-          <h2 className="section-title">Visual <span className="accent-gradient">Showcase</span></h2>
+          <span className="section-tag"><span className="pulse-dot"></span> LIVE ARCHIVE &amp; EXHIBITION</span>
+          <h2 className="section-title">Visual <span className="accent-gradient">Collage Wall</span></h2>
           <p className="section-subtitle">
-            Explore curated high-fidelity frames from the Obscura visual archive. Click any photograph to view raw EXIF telemetry, color grading profiles, and optics data.
+            A dynamic, living exhibition collage from the Obscura visual collective. Frames continuously float, spotlight, and pulse with live telemetry data.
           </p>
         </div>
 
@@ -92,9 +106,9 @@ export default function ShowcaseGallery() {
             <button
               className={`view-toggle-btn ${layoutMode === 'collage' ? 'active' : ''}`}
               onClick={() => handleLayoutChange('collage')}
-              title="Dynamic Magazine Collage Layout"
+              title="Living Asymmetric Collage Layout"
             >
-              🖼️ Collage Flow
+              🌟 Living Collage
             </button>
             <button
               className={`view-toggle-btn ${layoutMode === 'grid' ? 'active' : ''}`}
@@ -106,11 +120,13 @@ export default function ShowcaseGallery() {
           </div>
         </div>
 
-        {/* Gallery Dynamic Collage / Grid with Keyed Transition Animation */}
+        {/* Gallery Dynamic Living Collage Wall with Keyed Transition Animation */}
         <div
           key={`${activeFilter}-${layoutMode}`}
           className={`showcase-grid ${layoutMode === 'collage' ? 'layout-collage' : ''}`}
           id="showcaseGrid"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
           {filteredPhotos.map((photo, index) => (
             <ShowcaseCard
@@ -119,6 +135,7 @@ export default function ShowcaseGallery() {
               list={filteredPhotos}
               index={index}
               isCollageView={layoutMode === 'collage'}
+              isSpotlighted={layoutMode === 'collage' && index === spotlightIndex}
             />
           ))}
         </div>
