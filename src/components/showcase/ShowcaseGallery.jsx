@@ -6,10 +6,13 @@ import { useModal } from '../../context/ModalContext';
 
 export default function ShowcaseGallery() {
   const [activeFilter, setActiveFilter] = useState('all');
-  const [layoutMode, setLayoutMode] = useState('collage'); // 'collage' | 'grid'
+  const [layoutMode, setLayoutMode] = useState('merged'); // 'merged' | 'collage' | 'grid'
   const [spotlightIndex, setSpotlightIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const { playDialTick } = useViewfinder();
+  const sectionRef = useRef(null);
+  const hasAutoExploded = useRef(false);
+
+  const { playDialTick, playShutter } = useViewfinder();
   const { openLightbox } = useModal();
 
   const filterTabs = [
@@ -26,37 +29,67 @@ export default function ShowcaseGallery() {
     playDialTick();
   };
 
+  const explodeCollage = () => {
+    setLayoutMode('collage');
+    playShutter();
+  };
+
+  const mergePhotos = () => {
+    setLayoutMode('merged');
+    playDialTick();
+  };
+
   const handleLayoutChange = (mode) => {
     setLayoutMode(mode);
     playDialTick();
   };
 
+  // Scroll Listener: When user scrolls down into the section, auto-distort and explode the merged stack
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current || hasAutoExploded.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const triggerThreshold = window.innerHeight * 0.7;
+
+      // If the top of the section has entered the active reading zone
+      if (rect.top <= triggerThreshold && rect.bottom >= 100) {
+        if (layoutMode === 'merged') {
+          hasAutoExploded.current = true;
+          explodeCollage();
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [layoutMode]);
+
   const filteredPhotos = activeFilter === 'all'
     ? showcasePhotos
     : showcasePhotos.filter((p) => p.genre === activeFilter);
 
-  // Automatic Live Spotlight Cycle (every 4.5s, pauses on hover)
+  // Automatic Live Spotlight Cycle in collage mode
   useEffect(() => {
-    if (isHovered || filteredPhotos.length === 0) return;
+    if (isHovered || layoutMode !== 'collage' || filteredPhotos.length === 0) return;
 
     const interval = setInterval(() => {
       setSpotlightIndex((prev) => (prev + 1) % filteredPhotos.length);
     }, 4500);
 
     return () => clearInterval(interval);
-  }, [isHovered, filteredPhotos.length]);
+  }, [isHovered, layoutMode, filteredPhotos.length]);
 
   // Duplicated list for continuous infinite horizontal filmstrip
   const filmstripPhotos = [...showcasePhotos, ...showcasePhotos];
 
   return (
-    <section className="showcase-section section-spacing" id="showcase">
+    <section className="showcase-section section-spacing" id="showcase" ref={sectionRef}>
       <div className="container">
         <div className="section-header center">
           <span className="section-tag"><span className="pulse-dot"></span> LIVE ARCHIVE &amp; EXHIBITION</span>
-          <h2 className="section-title">Visual <span className="accent-gradient">Collage Wall</span></h2>
+          <h2 className="section-title">Visual <span className="accent-gradient">Showcase &amp; Collage</span></h2>
           <p className="section-subtitle">
-            A dynamic, living exhibition collage from the Obscura visual collective. Frames continuously float, spotlight, and pulse with live telemetry data.
+            All 16 exhibition frames begin merged together in a single photographic stack. Scroll down or click to distort, explode, and scatter them across the living collage wall.
           </p>
         </div>
 
@@ -104,11 +137,18 @@ export default function ShowcaseGallery() {
 
           <div className="gallery-view-toggle">
             <button
-              className={`view-toggle-btn ${layoutMode === 'collage' ? 'active' : ''}`}
-              onClick={() => handleLayoutChange('collage')}
-              title="Living Asymmetric Collage Layout"
+              className={`view-toggle-btn ${layoutMode === 'merged' ? 'active' : ''}`}
+              onClick={mergePhotos}
+              title="Merge all photos into a central stack"
             >
-              🌟 Living Collage
+              🎴 Merged Stack
+            </button>
+            <button
+              className={`view-toggle-btn ${layoutMode === 'collage' ? 'active' : ''}`}
+              onClick={explodeCollage}
+              title="Distort & Explode into Living Collage"
+            >
+              💥 Distorted Collage
             </button>
             <button
               className={`view-toggle-btn ${layoutMode === 'grid' ? 'active' : ''}`}
@@ -120,10 +160,16 @@ export default function ShowcaseGallery() {
           </div>
         </div>
 
-        {/* Gallery Dynamic Living Collage Wall with Keyed Transition Animation */}
+        {/* Gallery Grid / Merged Cluster with Live Explosion Transition */}
         <div
           key={`${activeFilter}-${layoutMode}`}
-          className={`showcase-grid ${layoutMode === 'collage' ? 'layout-collage' : ''}`}
+          className={`showcase-grid ${
+            layoutMode === 'merged'
+              ? 'layout-merged'
+              : layoutMode === 'collage'
+              ? 'layout-collage'
+              : ''
+          }`}
           id="showcaseGrid"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -134,10 +180,23 @@ export default function ShowcaseGallery() {
               photo={photo}
               list={filteredPhotos}
               index={index}
-              isCollageView={layoutMode === 'collage'}
+              layoutMode={layoutMode}
               isSpotlighted={layoutMode === 'collage' && index === spotlightIndex}
+              onStackClick={explodeCollage}
             />
           ))}
+
+          {/* Action Prompt Pill when in Merged Deck Mode */}
+          {layoutMode === 'merged' && (
+            <div className="merged-deck-action-overlay">
+              <button
+                className="merged-deck-pill"
+                onClick={explodeCollage}
+              >
+                💥 SCROLL DOWN OR CLICK TO EXPLODE 16 FRAMES
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>
