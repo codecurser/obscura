@@ -108,3 +108,97 @@
 .float-item {
   animation: float-subtle 4s ease-in-out infinite;
 }
+
+/* Collage Live Animations & Shutter Transitions */
+@keyframes collage-item-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(24px);
+  }
+  60% {
+    opacity: 0.95;
+    transform: scale(1.01) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.collage-animated-enter {
+  animation: collage-item-enter 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes filmstrip-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.filmstrip-track {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  animation: filmstrip-scroll 38s linear infinite;
+  will-change: transform;
+}
+
+.filmstrip-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes laser-sweep {
+  0% {
+    top: -100%;
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.85;
+  }
+  70% {
+    opacity: 0.85;
+  }
+  100% {
+    top: 200%;
+    opacity: 0;
+  }
+}
+
+.laser-scanner-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-gold), #ffffff, var(--accent-gold), transparent);
+  box-shadow: 0 0 8px var(--accent-gold);
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+}
+
+.showcase-item:hover .laser-scanner-line {
+  animation: laser-sweep 1.6s ease-in-out infinite;
+}
+
+@keyframes heart-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.45);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.heart-pop-active {
+  animation: heart-pop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
