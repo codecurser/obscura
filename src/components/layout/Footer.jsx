@@ -46,7 +46,7 @@ export default function Footer() {
               <li><a href="#showcase">Curated Showcase</a></li>
               <li><a href="#photowalk">Photowalks</a></li>
               <li><a href="#grading">Color Grading Lab</a></li>
-              <li><a href="#masterclass">Workshops</a></li>
+              <li><a href="#tips">Photography Laws &amp; Guide</a></li>
               <li><a href="#team">Leadership &amp; Team</a></li>
             </ul>
           </div>

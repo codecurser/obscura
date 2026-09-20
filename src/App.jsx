@@ -13,7 +13,7 @@ import HeroVideo from './components/hero/HeroVideo';
 import PhotowalkSection from './components/photowalk/PhotowalkSection';
 import ShowcaseGallery from './components/showcase/ShowcaseGallery';
 import ColorGradingLab from './components/grading/ColorGradingLab';
-import WorkshopsSection from './components/workshops/WorkshopsSection';
+import PhotographyTipsSection from './components/tips/PhotographyTipsSection';
 import TeamSection from './components/team/TeamSection';
 import Footer from './components/layout/Footer';
 
@@ -51,14 +51,14 @@ export default function App() {
           {/* 2. Photowalk Announcements & Past Recaps */}
           <PhotowalkSection />
 
-          {/* 3. Visual Showcase (16 Exhibition Photos) */}
+          {/* 3. Visual Showcase (16 Exhibition Photos & Living Collage) */}
           <ShowcaseGallery />
 
           {/* 4. DaVinci Color Grading Lab */}
           <ColorGradingLab />
 
-          {/* 5. Workshops & Masterclasses */}
-          <WorkshopsSection />
+          {/* 5. Photography Laws & Mastery Principles */}
+          <PhotographyTipsSection />
 
           {/* 6. Leadership & Core Team Carousel */}
           <TeamSection />

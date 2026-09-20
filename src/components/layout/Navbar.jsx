@@ -31,7 +31,7 @@ export default function Navbar() {
             <li><a href="#showcase" className="nav-link" onClick={handleNavClick}>Showcase</a></li>
             <li><a href="#photowalk" className="nav-link" onClick={handleNavClick}>Photowalks</a></li>
             <li><a href="#grading" className="nav-link" onClick={handleNavClick}>Color Lab</a></li>
-            <li><a href="#masterclass" className="nav-link" onClick={handleNavClick}>Workshops</a></li>
+            <li><a href="#tips" className="nav-link" onClick={handleNavClick}>Photo Guide</a></li>
             <li><a href="#team" className="nav-link" onClick={handleNavClick}>Team</a></li>
           </ul>
         </nav>

@@ -1,13 +1,17 @@
 import React from 'react';
 import { pastWalks } from '../../data/photowalkData';
+import { useViewfinder } from '../../context/ViewfinderContext';
 
 export default function PastWalksGrid() {
+  const { playDialTick } = useViewfinder();
+
   return (
-    <div style={{ marginTop: '60px' }}>
+    <div style={{ marginTop: '54px' }}>
       <div className="section-header">
-        <span className="section-tag">ARCHIVES</span>
-        <h3 style={{ fontSize: '1.8rem', fontWeight: '900' }}>Recent Photowalk Recaps</h3>
+        <span className="section-tag"><span className="pulse-dot"></span> ARCHIVES</span>
+        <h3 style={{ fontSize: '1.65rem', fontWeight: '900', color: '#09090b' }}>Recent Photowalk Recaps</h3>
       </div>
+
       <div className="past-walks-grid">
         {pastWalks.map((walk) => (
           <div key={walk.id} className="past-walk-card">
@@ -16,30 +20,16 @@ export default function PastWalksGrid() {
               {walk.reel ? (
                 <span className="past-walk-badge-highlight">▶ REEL HIGHLIGHT</span>
               ) : (
-                <span className="section-tag" style={{ padding: '3px 10px', fontSize: '0.7rem' }}>
+                <span className="past-walk-tag-badge">
                   {walk.tag}
                 </span>
               )}
             </div>
 
             <h4 className="past-walk-title">{walk.title}</h4>
-            <p style={{ fontSize: '0.9rem' }}>{walk.description}</p>
+            <p className="past-walk-desc">{walk.description}</p>
 
-            {walk.reel && (
-              <div className="past-walk-video-container">
-                <iframe
-                  src={walk.reel.embedUrl}
-                  className="past-walk-reel-frame"
-                  title={`${walk.title} Instagram Reel`}
-                  frameBorder="0"
-                  scrolling="no"
-                  allowTransparency="true"
-                  allowFullScreen={true}
-                />
-              </div>
-            )}
-
-            <div className="past-walk-stats" style={{ marginTop: 'auto' }}>
+            <div className="past-walk-stats">
               <span>👥 {walk.stats.attendees}</span>
               <span>📸 {walk.stats.submissions}</span>
               {walk.reel && (
@@ -47,9 +37,14 @@ export default function PastWalksGrid() {
                   href={walk.reel.watchUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="past-walk-ig-link"
+                  className="past-walk-reel-btn"
+                  onClick={playDialTick}
+                  title="Watch Instagram Reel"
                 >
-                  Watch Reel ↗
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                  <span>Watch Reel ↗</span>
                 </a>
               )}
             </div>
