@@ -19,7 +19,7 @@ export default function TeamCard({ member }) {
           decoding="async"
         />
         <span className={`team-role-badge badge-${member.category}`}>
-          {member.category === 'board' ? 'BOARD OF DIRECTORS' : 'CORE TEAM'}
+          {member.role.toUpperCase()}
         </span>
         <div className="team-overlay-telemetry">
           <span>CORE ID: {member.coreId}</span>

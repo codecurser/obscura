@@ -19,7 +19,7 @@ export default function TeamSection() {
 
   const filterTabs = [
     { key: 'all', label: `All Collective (${teamMembers.length})` },
-    { key: 'board', label: `Board & Leadership (${teamMembers.filter(m => m.category === 'board').length})` },
+    { key: 'board', label: `Leadership (${teamMembers.filter(m => m.category === 'board').length})` },
     { key: 'core', label: `Core Team (${teamMembers.filter(m => m.category === 'core').length})` }
   ];
 
