@@ -2239,6 +2239,8 @@
   font-size: 0.72rem;
   font-weight: 900;
   letter-spacing: 0.06em;
+  background: #ffffff;
+  color: #09090b;
   border: 1.5px solid #09090b;
   border-radius: 4px;
   box-shadow: 2.5px 2.5px 0px #09090b;
@@ -2248,21 +2250,10 @@
   gap: 4px;
 }
 
-.badge-president {
-  background: #f59e0b;
-  color: #09090b;
-}
-
-.badge-vp {
-  background: #38bdf8;
-  color: #09090b;
-}
-
-.badge-treasurer {
-  background: #34d399;
-  color: #09090b;
-}
-
+.badge-president,
+.badge-vp,
+.badge-treasurer,
+.badge-board,
 .badge-core {
   background: #ffffff;
   color: #09090b;
@@ -2313,10 +2304,10 @@
   font-family: var(--font-mono);
   font-size: 0.65rem;
   font-weight: 800;
-  color: #475569;
-  background: #f1f5f9;
+  color: #09090b;
+  background: #ffffff;
   padding: 2px 7px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #09090b;
   border-radius: 4px;
   text-transform: uppercase;
 }
@@ -2350,7 +2341,7 @@
   font-size: 0.68rem;
   font-weight: 700;
   color: #09090b;
-  background: #f8fafc;
+  background: #ffffff;
   border: 1px solid #09090b;
   padding: 3px 8px;
   border-radius: 4px;
