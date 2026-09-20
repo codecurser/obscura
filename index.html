@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OBSCURA | Photography &amp; Cinematography Collective</title>
+  <meta name="description" content="OBSCURA is an elite cinematography and photography collective. Explore curated visual showcases, join upcoming photowalks, master color grading in the DaVinci lab, and generate your creator ID pass.">
+  <meta name="keywords" content="photography collective, videography club, photowalk, cinematography, visual arts, camera gear, color grading, street photography">
+
+  <!-- OpenGraph / Social Sharing -->
+  <meta property="og:title" content="OBSCURA | Photography &amp; Cinematography Collective">
+  <meta property="og:description" content="Light. Shadow. Frames that breathe. Join our next photowalk and explore elite visual showcases.">
+  <meta property="og:type" content="website">
+
+  <!-- Preload Critical Hero Image for Instant Fast Loading -->
+  <link rel="preload" as="image" href="assets/images/hero_cinematic.webp" type="image/webp">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+  <!-- Custom Camera Focus Cursor -->
+  <div class="camera-cursor" id="cameraCursor" aria-hidden="true">
+    <div class="cursor-bracket-tl"></div>
+    <div class="cursor-bracket-tr"></div>
+    <div class="cursor-bracket-bl"></div>
+    <div class="cursor-bracket-br"></div>
+    <div class="cursor-dot-center"></div>
+  </div>
+
+  <!-- Film Grain Overlay -->
+  <div class="film-grain-overlay" aria-hidden="true"></div>
+
+  <!-- Camera Shutter Flash Overlay -->
+  <div class="shutter-flash-overlay" id="shutterFlash" aria-hidden="true"></div>
+
+  <!-- Fullscreen Camera Viewfinder Mode HUD -->
+  <div class="viewfinder-hud-layer" id="viewfinderHudLayer" aria-hidden="true">
+    <div class="vf-grid-lines">
+      <div class="vf-grid-cell"></div>
+      <div class="vf-grid-cell"></div>
+      <div class="vf-grid-cell"></div>
+      <div class="vf-grid-cell"></div>
+      <div class="vf-grid-cell"></div>
+      <div class="vf-grid-cell"></div>
+      <div class="vf-grid-cell"></div>
+      <div class="vf-grid-cell"></div>
+      <div class="vf-grid-cell"></div>
+    </div>
+    <div class="vf-crosshair"></div>
+    <div class="vf-telemetry-top">
+      <span>● REC [ 4K DCI • 24.00 FPS ]</span>
+      <span>ISO 400 • 1/50s • f/1.4 • 5600K</span>
+      <span>BAT 98% [ 14.4V ]</span>
+    </div>
+    <div class="vf-telemetry-bottom">
+      <span>AF-C [ EYE TRACKING ACTIVE ]</span>
+      <span>LUT: KODAK 2383 PRINT</span>
+      <span>AUDIO: -12dB CH1 / CH2</span>
+    </div>
+  </div>
+
+  <!-- Ambient Lighting Glow -->
+  <div class="ambient-glow-top" aria-hidden="true"></div>
+
+  <!-- 1. NAVIGATION BAR (Clean & Refined) -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#hero" class="brand-logo" id="brandLogo">
+        <img src="assets/images/obscura_hero_transparent.png" alt="OBSCURA official logo" class="brand-logo-img">
+      </a>
+
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#showcase" class="nav-link active">Showcase</a></li>
+          <li><a href="#photowalk" class="nav-link">Photowalks</a></li>
+          <li><a href="#grading" class="nav-link">Color Lab</a></li>
+          <li><a href="#masterclass" class="nav-link">Workshops</a></li>
+          <li><a href="#team" class="nav-link">Team</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Viewfinder HUD Toggle -->
+        <button class="hud-toggle-btn" id="hudToggleBtn" title="Toggle Camera Viewfinder HUD (Hotkey: V)">
+          <span class="hud-dot"></span>
+          <span class="btn-text">HUD: OFF</span>
+        </button>
+
+        <!-- Instagram Link -->
+        <a href="https://www.instagram.com/obscura_sharda/" target="_blank" rel="noopener noreferrer" class="btn-secondary btn-icon-only" title="Follow @obscura_sharda on Instagram" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+
+        <!-- Sound Effect Toggle -->
+        <button class="btn-secondary btn-icon-only" id="soundToggleBtn" title="Toggle Shutter Audio Feedback">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+        </button>
+
+        <a href="#team" class="btn btn-primary btn-sm">Meet The Team</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. HERO VIDEO SECTION -->
+  <section class="hero-video-section" id="hero">
+    <div class="hero-video-viewport">
+      <video 
+        class="hero-video-player" 
+        src="assets/videos/obscura_hero.mp4" 
+        autoplay 
+        muted 
+        loop 
+        playsinline 
+        preload="auto">
+      </video>
+    </div>
+  </section>
+
+
+
+  <!-- 4. PHOTOWALK ANNOUNCEMENTS SECTION -->
+  <section class="photowalk-section section-spacing" id="photowalk">
+    <div class="container">
+      <div class="section-header center">
+        <span class="section-tag"><span class="pulse-dot"></span> COMMUNITY EXPEDITIONS</span>
+        <h2 class="section-title">Photowalk <span class="accent-gradient">Announcements</span></h2>
+        <p class="section-subtitle">Grab your glass and walk the city streets with fellow filmmakers and photographers. All skill levels welcome.</p>
+      </div>
+
+      <!-- Featured Upcoming Photowalk Banner Card -->
+      <div class="photowalk-featured-card">
+        <div class="photowalk-media-box">
+          <img src="assets/images/photowalk_26_sep.webp" alt="Upcoming Obscura Photowalk on September 26 at 10:00 AM" class="photowalk-banner-img" loading="lazy" decoding="async">
+          <div class="photowalk-media-overlay"></div>
+          <span class="photowalk-tag-badge">UPCOMING EXPEDITION • SEP 26</span>
+
+          <!-- 4-Digit Live Countdown Clock -->
+          <div class="photowalk-countdown-wrapper">
+            <div class="countdown-label">COUNTDOWN TO SHUTTER RELEASE (SEP 26 • 10:00 AM)</div>
+            <div class="countdown-timer">
+              <div class="timer-box">
+                <div class="timer-num" id="pwDays">05</div>
+                <div class="timer-unit">Days</div>
+              </div>
+              <div class="timer-sep">:</div>
+              <div class="timer-box">
+                <div class="timer-num" id="pwHours">20</div>
+                <div class="timer-unit">Hours</div>
+              </div>
+              <div class="timer-sep">:</div>
+              <div class="timer-box">
+                <div class="timer-num" id="pwMins">45</div>
+                <div class="timer-unit">Mins</div>
+              </div>
+              <div class="timer-sep">:</div>
+              <div class="timer-box">
+                <div class="timer-num" id="pwSecs">00</div>
+                <div class="timer-unit">Secs</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photowalk Details & Itinerary -->
+        <div class="photowalk-details-box">
+          <div>
+            <div class="walk-date-row">
+              <span>📅 SATURDAY, SEP 26 • 10:00 AM - 14:00</span>
+              <span>📍 OBSCURA CREATIVE BASE</span>
+            </div>
+            <h3 class="walk-title">September Shutter Expedition: See You at 10</h3>
+            <p class="walk-desc">
+              Join the Obscura collective for an exclusive morning street and portrait expedition on September 26. We assemble at 10:00 AM sharp to capture golden morning light, architectural geometry, and cinematic street frames with our team.
+            </p>
+
+            <!-- Metadata Grid -->
+            <div class="walk-meta-grid">
+              <div class="walk-meta-card">
+                <div class="walk-meta-icon">🚶</div>
+                <div class="walk-meta-info">
+                  <span class="meta-title">DISTANCE</span>
+                  <span class="meta-val">3.8 KM Urban Loop</span>
+                </div>
+              </div>
+              <div class="walk-meta-card">
+                <div class="walk-meta-icon">👥</div>
+                <div class="walk-meta-info">
+                  <span class="meta-title">CAPACITY</span>
+                  <span class="meta-val">45 Spots (12 Remaining)</span>
+                </div>
+              </div>
+              <div class="walk-meta-card">
+                <div class="walk-meta-icon">☀️</div>
+                <div class="walk-meta-info">
+                  <span class="meta-title">WEATHER</span>
+                  <span class="meta-val">22°C • Clear Golden Light</span>
+                </div>
+              </div>
+              <div class="walk-meta-card">
+                <div class="walk-meta-icon">🏆</div>
+                <div class="walk-meta-info">
+                  <span class="meta-title">CHALLENGE PRIZE</span>
+                  <span class="meta-val">$500 B&amp;H Gift Card</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interactive Route Checkpoints -->
+            <div class="route-preview-container">
+              <div class="route-header">
+                <h4>Interactive Expedition Route</h4>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; color: var(--accent-gold);">CLICK WAYPOINT</span>
+              </div>
+              <div class="route-steps-list">
+                <div class="route-step-item active">
+                  <span class="step-name">1. Obscura Base Rendezvous (Briefing &amp; Gear Check)</span>
+                  <span class="route-step-time">10:00 AM</span>
+                </div>
+                <div class="route-step-item">
+                  <span class="step-name">2. Sunlit Architecture &amp; Contrast Alley</span>
+                  <span class="route-step-time">10:45 AM</span>
+                </div>
+                <div class="route-step-item">
+                  <span class="step-name">3. Urban Street &amp; Portrait Direction Session</span>
+                  <span class="route-step-time">11:45 AM</span>
+                </div>
+                <div class="route-step-item">
+                  <span class="step-name">4. Rooftop Lounge (Raw File Exchange &amp; Coffee)</span>
+                  <span class="route-step-time">13:00 PM</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recommended Gear Checklist -->
+            <div class="gear-checklist-box">
+              <div class="gear-checklist-title">RECOMMENDED GEAR CHECKLIST</div>
+              <div class="gear-tags">
+                <label class="gear-tag"><input type="checkbox" checked> Fast Prime Lens (35mm or 50mm f/1.4-f/1.8)</label>
+                <label class="gear-tag"><input type="checkbox" checked> Extra Batteries (Low temp drain)</label>
+                <label class="gear-tag"><input type="checkbox" checked> Lens Cloth / Rain Shield</label>
+                <label class="gear-tag"><input type="checkbox"> Portable Tripod / Monopod</label>
+                <label class="gear-tag"><input type="checkbox"> Mist / CineBloom Filter</label>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 16px; align-items: center;">
+            <button class="btn btn-primary" id="openRsvpModalBtn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="8.5" cy="7" r="4"></circle>
+                <line x1="20" y1="8" x2="20" y2="14"></line>
+                <line x1="23" y1="11" x2="17" y2="11"></line>
+              </svg>
+              RSVP For This Walk (Free)
+            </button>
+            <span style="font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700; color: var(--text-muted);">
+              Instant ticket badge issued
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Past Photowalk Archives Carousel / Grid -->
+      <div style="margin-top: 60px;">
+        <div class="section-header">
+          <span class="section-tag">ARCHIVES</span>
+          <h3 style="font-size: 1.8rem; font-weight: 900;">Recent Photowalk Recaps</h3>
+        </div>
+        <div class="past-walks-grid">
+          <!-- Recap 1: Humayun's Tomb -->
+          <div class="past-walk-card">
+            <div class="past-walk-header-row">
+              <span class="past-walk-date">AUGUST 18, 2026</span>
+              <span class="section-tag" style="padding: 3px 10px; font-size: 0.7rem;">HERITAGE ARCHIVE</span>
+            </div>
+            <h4 class="past-walk-title">Humayun's Tomb Heritage Photowalk</h4>
+            <p style="font-size: 0.9rem;">Captured Mughal architectural symmetry, sandstone arches, intricate marble lattices, and dramatic monsoon morning shadows.</p>
+            <div class="past-walk-stats" style="margin-top: auto;">
+              <span>👥 58 Attendees</span>
+              <span>📸 480 Photos Submitted</span>
+            </div>
+          </div>
+
+          <!-- Recap 2: Chandni Chowk & Red Fort with Playable Reel Video -->
+          <div class="past-walk-card">
+            <div class="past-walk-header-row">
+              <span class="past-walk-date">JULY 24, 2026</span>
+              <span class="past-walk-badge-highlight">▶ REEL HIGHLIGHT</span>
+            </div>
+            <h4 class="past-walk-title">Chandni Chowk &amp; Red Fort Street Photowalk</h4>
+            <p style="font-size: 0.9rem;">Explored the vibrant bustling alleys of Old Delhi, street portraiture in historic bazaars, and monumental red sandstone facades.</p>
+            
+            <!-- Embedded Instagram Reel Video Highlight Player -->
+            <div class="past-walk-video-container">
+              <iframe 
+                src="https://www.instagram.com/reel/DQj6Sj8kmbE/embed/" 
+                class="past-walk-reel-frame"
+                title="Chandni Chowk &amp; Red Fort Photowalk Highlight Reel"
+                frameborder="0" 
+                scrolling="no" 
+                allowtransparency="true" 
+                allowfullscreen="true">
+              </iframe>
+            </div>
+
+            <div class="past-walk-stats">
+              <span>👥 72 Attendees</span>
+              <span>📸 620 Photos Submitted</span>
+              <a href="https://www.instagram.com/reel/DQj6Sj8kmbE/?stkn=YXF6OTEwZ3V1Mzdi" target="_blank" rel="noopener noreferrer" class="past-walk-ig-link">Watch Reel ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. SHOWCASE SECTION (FILTERABLE PHOTO & VIDEO GALLERY) -->
+  <section class="showcase-section section-spacing" id="showcase">
+    <div class="container">
+      <div class="section-header center">
+        <span class="section-tag"><span class="pulse-dot"></span> CURATED EXHIBITION</span>
+        <h2 class="section-title">Visual <span class="accent-gradient">Showcase</span></h2>
+        <p class="section-subtitle">Explore curated high-fidelity frames from the Obscura visual archive. Click any photograph to view raw EXIF telemetry and camera specs.</p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="gallery-filter-bar">
+        <button class="filter-btn active" data-filter="all">All Disciplines (16)</button>
+        <button class="filter-btn" data-filter="portrait">Portraits &amp; Editorial</button>
+        <button class="filter-btn" data-filter="street">Street &amp; Architecture</button>
+        <button class="filter-btn" data-filter="nature">Nature &amp; Fine Art</button>
+        <button class="filter-btn" data-filter="cine">Cinematography &amp; Live</button>
+      </div>
+
+      <!-- Gallery Grid (16 Exhibition Masterpieces from New folder (14)) -->
+      <div class="showcase-grid" id="showcaseGrid">
+
+        <!-- Item 1: Architectural Light (Portrait) -->
+        <div class="showcase-item" data-genre="street" data-title="Architectural Silhouette &amp; Light" data-camera="Samsung Galaxy S23 Ultra" data-lens="Wide 23mm Equivalent f/1.8" data-shutter="1/833s" data-aperture="f/1.8" data-iso="ISO 25" data-focal="5.4mm (23mm Equiv)" data-profile="Expert RAW Dynamic HDR" data-location="Urban Promenade" data-likes="540">
+          <img src="assets/images/showcase/showcase_1.webp" alt="Architectural Silhouette and Golden Light" class="showcase-img" loading="lazy" decoding="async">
+          <div class="showcase-overlay"></div>
+          <div class="showcase-hud-top">
+            <span class="showcase-genre-badge">Architecture</span>
+            <span class="showcase-lens-badge">5.4mm f/1.8</span>
+          </div>
+          <div class="showcase-info-bottom">
+            <h3 class="showcase-title">Architectural Silhouette</h3>
+            <div class="showcase-meta">
+              <span class="showcase-optic-spec">5.4mm f/1.8 • Golden Perspective</span>
+              <span class="showcase-likes">♥ 540</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2: Decisive Cinematic Pass (Landscape) -->
+        <div class="showcase-item landscape" data-genre="cine" data-title="Decisive Cinematic Pass" data-camera="ARRI Alexa Mini LF" data-lens="Cooke Anamorphic /i 50mm T2.3" data-shutter="1/48s" data-aperture="T2.4" data-iso="ISO 800 Base" data-focal="50mm (2.39:1 Anamorphic)" data-profile="ARRI LogC3 / Kodak 2383" data-location="Obscura Soundstage One" data-likes="890">
+          <img src="assets/images/showcase/showcase_2.webp" alt="Decisive Cinematic Pass Film Still" class="showcase-img" loading="lazy" decoding="async">
+          <div class="showcase-overlay"></div>
+          <div class="showcase-hud-top">
+            <span class="showcase-genre-badge">Cinema Still</span>
+            <span class="showcase-lens-badge">Cooke 50mm</span>
+          </div>
+          <div class="showcase-info-bottom">
+            <h3 class="showcase-title">Decisive Cinematic Pass</h3>
+            <div class="showcase-meta">
+              <span class="showcase-optic-spec">50mm Anamorphic • Kodak 2383</span>
+              <span class="showcase-likes">♥ 890</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3: Studio Elegance Exposure (Portrait) -->
+        <div class="showcase-item" data-genre="portrait" data-title="Studio Elegance Exposure" data-camera="Nikon D850 Studio" data-lens="Nikkor AF-S 85mm f/1.4G" data-shutter="1/500s" data-aperture="f/1.8" data-iso="ISO 100 Base" data-focal="85mm" data-profile="14-bit Uncompressed RAW" data-location="Obscura Portrait Studio" data-likes="675">
+          <img src="assets/images/showcase/showcase_3.webp" alt="Studio Elegance Editorial Portrait" class="showcase-img" loading="lazy" decoding="async">
+          <div class="showcase-overlay"></div>
+          <div class="showcase-hud-top">
+            <span class="showcase-genre-badge">Editorial</span>
+            <span class="showcase-lens-badge">85mm f/1.4</span>
+          </div>
+          <div class="showcase-info-bottom">
+            <h3 class="showcase-title">Studio Elegance Exposure</h3>
+            <div class="showcase-meta">
+              <span class="showcase-optic-spec">85mm f/1.8 • Studio Atelier</span>
+              <span class="showcase-likes">♥ 675</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 4: Nocturne Ambient Expression (Portrait) -->
+        <div class="showcase-item" data-genre="portrait" data-title="Nocturne Ambient Expression" data-camera="Fujifilm X-T5" data-lens="XF 35mm f/1.4 R" data-shutter="1/160s" data-aperture="f/1.4" data-iso="ISO 400" data-focal="35mm (53mm eq)" data-profile="Classic Chrome Low-Key" data-location="Shadow Room Gallery" data-likes="620">
+          <img src="assets/images/showcase/showcase_4.webp" alt="Nocturne Ambient Expression Portrait" class="showcase-img" loading="lazy" decoding="async">
+          <div class="showcase-overlay"></div>
+          <div class="showcase-hud-top">
+            <span class="showcase-genre-badge">Editorial</span>
+            <span class="showcase-lens-badge">35mm f/1.4</span>
+          </div>
+          <div class="showcase-info-bottom">
+            <h3 class="showcase-title">Nocturne Expression</h3>
+            <div class="showcase-meta">
+              <span class="showcase-optic-spec">35mm f/1.4 • Low-Key Mood</span>
+              <span class="showcase-likes">♥ 620</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 5: Chiaroscuro Street Still (Portrait) -->
+        <div class="showcase-item" data-genre="street" data-title="Chiaroscuro Street Still" data-camera="Leica M11 Monochrom" data-lens="Summilux-M 35mm f/1.4 ASPH" data-shutter="1/320s" data-aperture="f/2.0" data-iso="ISO 200" data-focal="35mm" data-profile="Tri-X 400 Grain Profile" data-location="Historic Quarter Alley" data-likes="520">
+          <img src="assets/images/showcase/showcase_5.webp" alt="Chiaroscuro Street Photography Monochrome" class="showcase-img" loading="lazy" decoding="async">
+          <div class="showcase-overlay"></div>
+          <div class="showcase-hud-top">
+            <span class="showcase-genre-badge">Street Noir</span>
+            <span class="showcase-lens-badge">35mm f/1.4</span>
+          </div>
+          <div class="showcase-info-bottom">
+            <h3 class="showcase-title">Chiaroscuro Street Still</h3>
+            <div class="showcase-meta">
+              <span class="showcase-optic-spec">35mm f/2.0 • Historic Quarter</span>
+              <span class="showcase-likes">♥ 520</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 6: Monolith Noir & Shadow (Square) -->
+        <div class="showcase-item square" data-genre="street" data-title="Monolith Noir &amp; Shadow" data-camera="Sony Alpha 7R V" data-lens="FE 24-70mm f/2.8 GM II" data-shutter="1/640s" data-aperture="f/2.8" data-iso="ISO 100" data-focal="42mm" data-profile="Deep Dynamic Monochrome" data-location="Civic Pavilion Atrium" data-likes="488">
+          <img src="assets/images/showcase/showcase_6.webp" alt="Monolith Noir Shadow Architecture" class="showcase-img" loading="lazy" decoding="async">
+          <div class="showcase-overlay"></div>
+          <div class="showcase-hud-top">
+            <span class="showcase-genre-badge">Architecture</span>
+            <span class="showcase-lens-badge">24-70mm f/2.8</span>
+          </div>
+          <div class="showcase-info-bottom">
+            <h3 class="showcase-title">Monolith Noir &amp; Shadow</h3>
+            <div class="showcase-meta">
+              <span class="showcase-optic-spec">42mm f/2.8 • Civic Pavilion</span>
+              <span class="showcase-likes">♥ 488</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 7: Editorial Mood Portrait I (Portrait) -->
+        <div class="showcase-item" data-genre="portrait" data-title="Intimate Expression I" data-camera="Sony Alpha 7 IV" data-lens="FE 50mm f/1.2 GM" data-shutter="1/320s" data-aperture="f/1.4" data-iso="ISO 100" data-focal="50mm" data-profile="Kodak Portra 400" data-location="Studio Atelier 7" data-likes="570">
+          <img src="assets/images/showcase/showcase_7.webp" alt="Editorial Mood Portrait I" class="showcase-img" loading="lazy" decoding="async">
+          <div class="showcase-overlay"></div>
+          <div class="showcase-hud-top">
+            <span class="showcase-genre-badge">Editorial</span>
+            <span class="showcase-lens-badge">50mm f/1.2</span>
+          </div>
+          <div class="showcase-info-bottom">
+            <h3 class="showcase-title">Intimate Expression I</h3>
+            <div class="showcase-meta">
+              <span class="showcase-optic-spec">50mm f/1.2 • Portra 400</span>
+              <span class="showcase-likes">♥ 570</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 8: Editorial Mood Portrait II (Portrait) -->
+        <div class="showcase-item" data-genre="portrait" data-title="Intimate Expression II" data-camera="Canon EOS R5" data-lens="RF 85mm f/1.2L USM DS" data-shutter="1/400s" data-aperture="f/1.2" data-iso="ISO 100" data-focal="85mm" data-profile="C-Log3 / CinePrint" data-location="Studio Atelier 7" data-likes="615">
+          <img src="assets/images/showcase/showcase_8.webp" alt="Editorial Mood Portrait II" class="showcase-img" loading="lazy" decoding="async">
+          <div class="showcase-overlay"></div>
+          <div class="showcase-hud-top">
+            <span class="showcase-genre-badge">Editorial</span>
+            <span class="showcase-lens-badge">85mm f/1.2</span>
+          </div>
+          <div class="showcase-info-bottom">
+            <h3 class="showcase-title">Intimate Expression II</h3>
+            <div class="showcase-meta">
+              <span class="showcase-optic-spec">85mm f/1.2 • CinePrint</span>
+              <span class="showcase-likes">♥ 615</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 9: Nature As An Artist I (Square) -->
+        <div class="showcase-item square" data-genre="nature" data-title="Nature As An Artist I" data-camera="Nikon Z7 II" data-lens="Nikkor Z MC 105mm f/2.8 VR S" data-shutter="1/200s" data-aperture="f/4.0" data-iso="ISO 64" data-focal="105mm Macro" data-profile="Vivid Fine Art" data-location="Alpine Reserve" data-likes="780">
+          <img src="assets/images/showcase/showcase_9.webp" alt="Nature As An Artist Organic Series I" class="showcase-img" loading="lazy" decoding="async">
+          <div class="showcase-overlay"></div>
+          <div class="showcase-hud-top">
+            <span class="showcase-genre-badge">Nature &amp; Art</span>
+            <span class="showcase-lens-badge">105mm Macro</span>
+          </div>
+          <div class="showcase-info-bottom">
+            <h3 class="showcase-title">Nature As An Artist I</h3>
+            <div class="showcase-meta">
+              <span class="showcase-optic-spec">105mm f/4.0 • Alpine Reserve</span>
+              <span class="showcase-likes">♥ 780</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 10: Nature As An Artist II (Square) -->
+        <div class="showcase-item square" data-genre="nature" data-title="Nature As An Artist II" data-camera="Nikon Z7 II" data-lens="Nikkor Z MC 105mm f/2.8 VR S" data-shutter="1/250s" data-aperture="f/4.5" data-iso="ISO 64" data-focal="105mm Macro" data-profile="Vivid Fine Art" data-location="Alpine Reserve" data-likes="712">
+          <img src="assets/images/showcase/showcase_10.webp" alt="Nature As An Artist Organic Series II" class="showcase-img" loading="lazy" decoding="async">
+          <div class="showcase-overlay"></div>
+          <div class="showcase-hud-top">
+            <span class="showcase-genre-badge">Nature &amp; Art</span>
+            <span class="showcase-lens-badge">105mm Macro</span>
+          </div>
+          <div class="showcase-info-bottom">
+            <h3 class="showcase-title">Nature As An Artist II</h3>
+            <div class="showcase-meta">
+              <span class="showcase-optic-spec">105mm f/4.5 • Alpine Reserve</span>
+              <span class="showcase-likes">♥ 712</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 11: Chiaroscuro Master Portrait (Portrait) -->
+        <div class="showcase-item" data-genre="portrait" data-title="Chiaroscuro Master Portrait" data-camera="Sony Alpha 7R V" data-lens="FE 85mm f/1.4 GM" data-shutter="1/800s" data-aperture="f/1.4" data-iso="ISO 100" data-focal="85mm" data-profile="Studio Keylight 14-bit RAW" data-location="Obscura Darkroom Studio" data-likes="895">
+          <img src="assets/images/showcase/showcase_11.webp" alt="Chiaroscuro Master Portrait" class="showcase-img" loading="lazy" decoding="async">
+          <div class="showcase-overlay"></div>
+          <div class="showcase-hud-top">
+            <span class="showcase-genre-badge">Editorial</span>
+            <span class="showcase-lens-badge">85mm f/1.4</span>
+          </div>
+          <div class="showcase-info-bottom">
+            <h3 class="showcase-title">Chiaroscuro Portrait</h3>
+            <div class="showcase-meta">
+              <span class="showcase-optic-spec">85mm f/1.4 • High Contrast</span>
+              <span class="showcase-likes">♥ 895</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 12: Atmospheric Decisive Composition (Portrait) -->
+        <div class="showcase-item" data-genre="portrait" data-title="Atmospheric Decisive Composition" data-camera="Sony Alpha 7R V" data-lens="FE 85mm f/1.4 GM" data-shutter="1/640s" data-aperture="f/1.4" data-iso="ISO 100" data-focal="85mm" data-profile="High-Key Contrast Monochrome" data-location="Obscura North Vault" data-likes="840">
+          <img src="assets/images/showcase/showcase_12.webp" alt="Atmospheric Decisive Composition" class="showcase-img" loading="lazy" decoding="async">
+          <div class="showcase-overlay"></div>
+          <div class="showcase-hud-top">
+            <span class="showcase-genre-badge">Fine Art</span>
+            <span class="showcase-lens-badge">85mm f/1.4</span>
+          </div>
+          <div class="showcase-info-bottom">
+            <h3 class="showcase-title">Atmospheric Frame</h3>
+            <div class="showcase-meta">
+              <span class="showcase-optic-spec">85mm f/1.4 • Cinematic Mood</span>
+              <span class="showcase-likes">♥ 840</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 13: Celestial Horizon & Editorial Frame (Landscape) -->
+        <div class="showcase-item landscape" data-genre="nature" data-title="Celestial Horizon &amp; Editorial Frame" data-camera="Sony ILCE-6400" data-lens="FE 85mm f/1.4 GM Prime" data-shutter="1/640s" data-aperture="f/1.4" data-iso="ISO 100" data-focal="85mm (127mm Equiv)" data-profile="S-Cinetone / CinePrint" data-location="Coastal Reserve Stage" data-likes="1120">
+          <img src="assets/images/showcase/showcase_13.webp" alt="Celestial Horizon Editorial Landscape Frame" class="showcase-img" loading="lazy" decoding="async">
+          <div class="showcase-overlay"></div>
+          <div class="showcase-hud-top">
+            <span class="showcase-genre-badge">Landscape</span>
+            <span class="showcase-lens-badge">85mm f/1.4</span>
+          </div>
+          <div class="showcase-info-bottom">
+            <h3 class="showcase-title">Celestial Horizon Frame</h3>
+            <div class="showcase-meta">
+              <span class="showcase-optic-spec">85mm f/1.4 • 16:9 Landscape</span>
+              <span class="showcase-likes">♥ 1.12k</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 14: Urban Decisive Perspective (Portrait) -->
+        <div class="showcase-item" data-genre="street" data-title="Urban Decisive Perspective" data-camera="Sony Alpha 7 IV" data-lens="FE 35mm f/1.4 GM" data-shutter="1/800s" data-aperture="f/2.0" data-iso="ISO 100" data-focal="35mm" data-profile="S-Cinetone" data-location="Central Metro Concourse" data-likes="460">
+          <img src="assets/images/showcase/showcase_14.webp" alt="Urban Decisive Perspective" class="showcase-img" loading="lazy" decoding="async">
+          <div class="showcase-overlay"></div>
+          <div class="showcase-hud-top">
+            <span class="showcase-genre-badge">Street &amp; Urban</span>
+            <span class="showcase-lens-badge">35mm f/1.4</span>
+          </div>
+          <div class="showcase-info-bottom">
+            <h3 class="showcase-title">Urban Decisive Perspective</h3>
+            <div class="showcase-meta">
+              <span class="showcase-optic-spec">35mm f/2.0 • Central Metro</span>
+              <span class="showcase-likes">♥ 460</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 15: Golden Promenade Twilight (Portrait) -->
+        <div class="showcase-item" data-genre="street" data-title="Golden Promenade Twilight" data-camera="Fujifilm X-T5" data-lens="XF 23mm f/1.4 R LM WR" data-shutter="1/250s" data-aperture="f/1.8" data-iso="ISO 200" data-focal="23mm" data-profile="Astia Soft Color" data-location="Promenade Walkway" data-likes="518">
+          <img src="assets/images/showcase/showcase_15.webp" alt="Golden Promenade Twilight Still" class="showcase-img" loading="lazy" decoding="async">
+          <div class="showcase-overlay"></div>
+          <div class="showcase-hud-top">
+            <span class="showcase-genre-badge">Street &amp; Urban</span>
+            <span class="showcase-lens-badge">23mm f/1.4</span>
+          </div>
+          <div class="showcase-info-bottom">
+            <h3 class="showcase-title">Golden Promenade Twilight</h3>
+            <div class="showcase-meta">
+              <span class="showcase-optic-spec">23mm f/1.8 • Promenade</span>
+              <span class="showcase-likes">♥ 518</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 16: Live Stage Festive Energy (Portrait) -->
+        <div class="showcase-item" data-genre="cine" data-title="Live Stage Festive Energy" data-camera="Sony Alpha 1 High Speed" data-lens="FE 70-200mm f/2.8 GM OSS II" data-shutter="1/1000s" data-aperture="f/2.8" data-iso="ISO 1600" data-focal="135mm" data-profile="Concert High Voltage RAW" data-location="Live Arena Stage" data-likes="1450">
+          <img src="assets/images/showcase/showcase_16.webp" alt="Live Stage Festive Energy Concert Performance" class="showcase-img" loading="lazy" decoding="async">
+          <div class="showcase-overlay"></div>
+          <div class="showcase-hud-top">
+            <span class="showcase-genre-badge">Concert &amp; Live</span>
+            <span class="showcase-lens-badge">70-200mm f/2.8</span>
+          </div>
+          <div class="showcase-info-bottom">
+            <h3 class="showcase-title">Live Stage Festive Energy</h3>
+            <div class="showcase-meta">
+              <span class="showcase-optic-spec">135mm f/2.8 • Live Arena</span>
+              <span class="showcase-likes">♥ 1.45k</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. DAVINCI COLOR GRADING LAB & SCOPES -->
+  <section class="grading-section section-spacing" id="grading">
+    <div class="container">
+      <div class="section-header center">
+        <span class="section-tag"><span class="pulse-dot"></span> POST-PRODUCTION MASTERY</span>
+        <h2 class="section-title">DaVinci <span class="accent-gradient">Color Grading Lab</span></h2>
+        <p class="section-subtitle">Drag the interactive slider to compare flat 12-bit RAW sensor output against the finalized 35mm Hollywood film grade. Toggle LUT presets and monitor RGB waveform telemetry live.</p>
+      </div>
+
+      <div class="grading-studio-card">
+        <!-- Interactive Split Comparison Slider -->
+        <div class="comparison-wrapper" id="gradingComparisonWrapper">
+          <!-- Graded Master Image (Underneath) -->
+          <div class="comparison-img-box comparison-img-after">
+            <img src="assets/images/slider_graded.webp" alt="Graded Cinematic Master" loading="lazy" decoding="async">
+          </div>
+
+          <!-- RAW Flat Log Image (Clipped overlay) -->
+          <div class="comparison-img-box comparison-img-before" id="comparisonBeforeBox">
+            <img src="assets/images/slider_raw.webp" alt="Uncompressed RAW Log Sensor Output" loading="lazy" decoding="async">
+          </div>
+
+          <!-- Slider Drag Handle -->
+          <div class="comparison-slider-handle" id="comparisonSliderHandle">
+            <div class="handle-center-circle">↔</div>
+          </div>
+
+          <!-- Labels -->
+          <div class="comparison-label label-raw">◀ RAW 12-BIT S-LOG3</div>
+          <div class="comparison-label label-graded">35MM FILM GRADE MASTER ▶</div>
+        </div>
+
+        <!-- 6 Interactive LUT Presets -->
+        <div class="lut-presets-bar">
+          <span style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 800; color: var(--text-primary);">SELECT LUT EMULATION:</span>
+          <button class="lut-preset-btn active" data-lut="kodak">🎞️ Kodak Portra 400</button>
+          <button class="lut-preset-btn" data-lut="cinestill">🌆 CineStill 800T</button>
+          <button class="lut-preset-btn" data-lut="cyber">⚡ Matrix Cyberpunk</button>
+          <button class="lut-preset-btn" data-lut="hollywood">🎬 Teal &amp; Orange Blockbuster</button>
+          <button class="lut-preset-btn" data-lut="noir">🖤 Tri-X 400 Noir</button>
+          <button class="lut-preset-btn" data-lut="bleach">🛡️ Bleach Bypass</button>
+        </div>
+
+        <!-- Colorist Sliders & Real-Time Waveform Oscilloscope -->
+        <div class="grading-controls-grid">
+          <div class="grading-sliders-box">
+            <div class="sim-slider-row">
+              <div class="sim-label-row">
+                <span>CONTRAST EXPANSION</span>
+                <span class="sim-val-display">115%</span>
+              </div>
+              <input type="range" id="gradeContrast" class="sim-range-input" min="70" max="170" value="115">
+            </div>
+            <div class="sim-slider-row">
+              <div class="sim-label-row">
+                <span>SUBTRACTIVE SATURATION</span>
+                <span class="sim-val-display">130%</span>
+              </div>
+              <input type="range" id="gradeSat" class="sim-range-input" min="30" max="200" value="130">
+            </div>
+            <div class="sim-slider-row">
+              <div class="sim-label-row">
+                <span>COLOR TEMPERATURE KELVIN</span>
+                <span class="sim-val-display">5600K</span>
+              </div>
+              <input type="range" id="gradeTemp" class="sim-range-input" min="-40" max="40" value="10">
+            </div>
+          </div>
+
+          <!-- Oscilloscope RGB Scope Monitor -->
+          <div class="scope-monitor-box">
+            <div class="scope-header">
+              <span>● RGB PARADE SCOPES</span>
+              <span>DAVINCI 19 SUITE</span>
+            </div>
+            <div class="scope-canvas-bars">
+              <div class="scope-bar r" style="height: 55px;"></div>
+              <div class="scope-bar r" style="height: 40px;"></div>
+              <div class="scope-bar r" style="height: 68px;"></div>
+              <div class="scope-bar g" style="height: 60px;"></div>
+              <div class="scope-bar g" style="height: 48px;"></div>
+              <div class="scope-bar g" style="height: 72px;"></div>
+              <div class="scope-bar b" style="height: 50px;"></div>
+              <div class="scope-bar b" style="height: 65px;"></div>
+              <div class="scope-bar b" style="height: 42px;"></div>
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #94a3b8; display: flex; justify-content: space-between;">
+              <span>R / G / B HISTOGRAM BINS</span>
+              <span>DYNAMIC RANGE: 15.2 STOPS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. MASTERCLASSES & GEAR LOCKER -->
+  <section class="section-spacing" id="masterclass">
+    <div class="container">
+      <div class="section-header row-layout">
+        <div>
+          <span class="section-tag"><span class="pulse-dot"></span> EDUCATION &amp; HARDWARE</span>
+          <h2 class="section-title">Workshops <span class="accent-gradient">&amp; Gear Locker</span></h2>
+          <p class="section-subtitle">Level up your technical craft with masterclasses and get access to the collective's high-end cinema equipment locker.</p>
+        </div>
+        <div>
+          <a href="#photowalk" class="btn btn-secondary">Request Gear Checkout</a>
+        </div>
+      </div>
+
+      <!-- Workshop Cards -->
+      <div class="masterclass-grid">
+        <div class="masterclass-card">
+          <div>
+            <div class="workshop-badge">LIVE INTENSIVE • 4 HOURS</div>
+            <h3 class="workshop-title">Anamorphic Cinematography &amp; Flare Control</h3>
+            <p style="font-size: 0.95rem;">Master the art of 2.39:1 widescreen framing, cylindrical flare dynamics, and squeeze factor workflows.</p>
+          </div>
+          <div class="workshop-instructor">
+            <div class="instructor-avatar">DP</div>
+            <div>
+              <div style="font-weight: 800; color: #ffffff;">Marcus Vance</div>
+              <div style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 800; color: var(--accent-gold);">Director of Photography</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="masterclass-card">
+          <div>
+            <div class="workshop-badge">HANDS-ON STUDIO • 6 HOURS</div>
+            <h3 class="workshop-title">Rembrandt &amp; Low-Key Cinematic Lighting</h3>
+            <p style="font-size: 0.95rem;">Crafting mood with negative fill, diffusion frames, hard tungsten fresnels, and volumetric haze.</p>
+          </div>
+          <div class="workshop-instructor">
+            <div class="instructor-avatar">LT</div>
+            <div>
+              <div style="font-weight: 800; color: #ffffff;">Chloe Deschanel</div>
+              <div style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 800; color: var(--accent-gold);">Gaffer &amp; Lighting Designer</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="masterclass-card">
+          <div>
+            <div class="workshop-badge">POST SUITE • 3 HOURS</div>
+            <h3 class="workshop-title">DaVinci Resolve Node Trees &amp; Film Grain</h3>
+            <p style="font-size: 0.95rem;">Building robust ACES color-managed node pipelines, subtractive saturation, and halation effects.</p>
+          </div>
+          <div class="workshop-instructor">
+            <div class="instructor-avatar">CC</div>
+            <div>
+              <div style="font-weight: 800; color: #ffffff;">David Rost</div>
+              <div style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 800; color: var(--accent-gold);">Senior Colorist</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gear Locker Grid -->
+      <div class="gear-grid">
+        <div class="gear-card">
+          <span class="gear-category">CINEMA CAMERA</span>
+          <h4 class="gear-name">Sony FX3 Full-Frame Cinema</h4>
+          <span class="gear-status">● AVAILABLE IN LOCKER</span>
+        </div>
+        <div class="gear-card">
+          <span class="gear-category">PRIME LENS SET</span>
+          <h4 class="gear-name">Zeiss Supreme Primes (21, 35, 50, 85mm)</h4>
+          <span class="gear-status">● AVAILABLE IN LOCKER</span>
+        </div>
+        <div class="gear-card">
+          <span class="gear-category">CINEMA DRONE</span>
+          <h4 class="gear-name">DJI Inspire 3 (8K CinemaDNG)</h4>
+          <span class="gear-status">● AVAILABLE IN LOCKER</span>
+        </div>
+        <div class="gear-card">
+          <span class="gear-category">STUDIO LIGHTING</span>
+          <h4 class="gear-name">Aputure Electro Storm CS15 (1500W RGB)</h4>
+          <span class="gear-status">● AVAILABLE IN LOCKER</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. COLLECTIVE LEADERSHIP & CORE TEAM CAROUSEL -->
+  <section class="team-section section-spacing" id="team">
+    <div class="container">
+      <div class="section-header row-layout">
+        <div>
+          <span class="section-tag"><span class="pulse-dot"></span> COLLECTIVE LEADERSHIP &amp; CORE TEAM</span>
+          <h2 class="section-title">The Visionaries Behind <span class="accent-gradient">OBSCURA</span></h2>
+          <p class="section-subtitle">Swipe through our executive directors and core artists steering our cinematography, workshops, and expeditions.</p>
+        </div>
+        <div class="team-header-controls">
+          <div class="team-filter-pills" id="teamFilterPills">
+            <button class="filter-pill active" data-filter="all">All (10)</button>
+            <button class="filter-pill" data-filter="board">Board (3)</button>
+            <button class="filter-pill" data-filter="core">Core (7)</button>
+          </div>
+          <div class="team-carousel-nav">
+            <button class="team-carousel-btn" id="teamPrevBtn" aria-label="Previous Member">←</button>
+            <span class="team-slide-counter" id="teamSlideCounter">01 / 10</span>
+            <button class="team-carousel-btn" id="teamNextBtn" aria-label="Next Member">→</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel Viewport & Track -->
+      <div class="team-carousel-viewport" id="teamCarouselViewport">
+        <div class="team-carousel-track" id="teamCarouselTrack">
+          <!-- 1. HarshVardhan - President -->
+          <div class="team-card" data-category="board">
+            <div class="team-img-wrapper">
+              <img src="assets/images/members/harshvardhan_president.webp" alt="HarshVardhan - President" class="team-photo" loading="lazy" decoding="async">
+              <span class="team-role-badge badge-president">
+                <span class="badge-star">★</span> PRESIDENT
+              </span>
+              <div class="team-overlay-telemetry">
+                <span>BOARD ID: OBS-01</span>
+                <span>EXECUTIVE LEAD</span>
+              </div>
+            </div>
+            <div class="team-content">
+              <div class="team-header-row">
+                <h3 class="team-name">HarshVardhan</h3>
+                <span class="team-sub-badge">LEADERSHIP</span>
+              </div>
+              <p class="team-designation">President • Obscura Collective</p>
+              <p class="team-bio">Leading the collective's vision, large-scale cinematic expeditions, and artistic direction with uncompromising visual standards.</p>
+              <div class="team-specs">
+                <span class="spec-tag">Creative Direction</span>
+                <span class="spec-tag">Executive Producer</span>
+                <span class="spec-tag">Film Composition</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Rajvir - Vice President -->
+          <div class="team-card" data-category="board">
+            <div class="team-img-wrapper">
+              <img src="assets/images/members/rajvir_vice_president.webp" alt="Rajvir - Vice President" class="team-photo" loading="lazy" decoding="async">
+              <span class="team-role-badge badge-vp">
+                <span class="badge-star">★</span> VICE PRESIDENT
+              </span>
+              <div class="team-overlay-telemetry">
+                <span>BOARD ID: OBS-02</span>
+                <span>OPERATIONS LEAD</span>
+              </div>
+            </div>
+            <div class="team-content">
+              <div class="team-header-row">
+                <h3 class="team-name">Rajvir</h3>
+                <span class="team-sub-badge">LEADERSHIP</span>
+              </div>
+              <p class="team-designation">Vice President • Obscura Collective</p>
+              <p class="team-bio">Orchestrating visual production pipelines, expedition logistics, and field cinematography across all member initiatives.</p>
+              <div class="team-specs">
+                <span class="spec-tag">Cinematography</span>
+                <span class="spec-tag">Production Logistics</span>
+                <span class="spec-tag">Optics</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Chirag Dadwal - Treasurer -->
+          <div class="team-card" data-category="board">
+            <div class="team-img-wrapper">
+              <img src="assets/images/members/chirag_dadwal_treasurer.webp" alt="Chirag Dadwal - Treasurer" class="team-photo" loading="lazy" decoding="async">
+              <span class="team-role-badge badge-treasurer">
+                <span class="badge-star">★</span> TREASURER
+              </span>
+              <div class="team-overlay-telemetry">
+                <span>BOARD ID: OBS-03</span>
+                <span>GEAR VAULT &amp; FINANCE</span>
+              </div>
+            </div>
+            <div class="team-content">
+              <div class="team-header-row">
+                <h3 class="team-name">Chirag Dadwal</h3>
+                <span class="team-sub-badge">TREASURY</span>
+              </div>
+              <p class="team-designation">Treasurer • Obscura Collective</p>
+              <p class="team-bio">Managing collective funding, hardware acquisitions, and gear locker equipment allocations for all community projects.</p>
+              <div class="team-specs">
+                <span class="spec-tag">Financial Stewardship</span>
+                <span class="spec-tag">Gear Vault Manager</span>
+                <span class="spec-tag">Budgeting</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Ashish - Core Team -->
+          <div class="team-card" data-category="core">
+            <div class="team-img-wrapper">
+              <img src="assets/images/members/ashish_core_team.webp" alt="Ashish - Core Team" class="team-photo" loading="lazy" decoding="async">
+              <span class="team-role-badge badge-core">CORE TEAM</span>
+              <div class="team-overlay-telemetry">
+                <span>CORE ID: OBS-04</span>
+                <span>FIELD LEAD</span>
+              </div>
+            </div>
+            <div class="team-content">
+              <div class="team-header-row">
+                <h3 class="team-name">Ashish</h3>
+                <span class="team-sub-badge">EXPEDITIONS</span>
+              </div>
+              <p class="team-designation">Core Team • Obscura Collective</p>
+              <p class="team-bio">Driving field photowalk routes, scouting secret vantage points, and exploring architecture &amp; street light dynamics.</p>
+              <div class="team-specs">
+                <span class="spec-tag">Field Expeditions</span>
+                <span class="spec-tag">Visual Storytelling</span>
+                <span class="spec-tag">Lighting Architecture</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Anshvi - Core Team -->
+          <div class="team-card" data-category="core">
+            <div class="team-img-wrapper">
+              <img src="assets/images/members/anshvi_core_team.webp" alt="Anshvi - Core Team" class="team-photo" loading="lazy" decoding="async">
+              <span class="team-role-badge badge-core">CORE TEAM</span>
+              <div class="team-overlay-telemetry">
+                <span>CORE ID: OBS-05</span>
+                <span>WORKSHOPS LEAD</span>
+              </div>
+            </div>
+            <div class="team-content">
+              <div class="team-header-row">
+                <h3 class="team-name">Anshvi</h3>
+                <span class="team-sub-badge">WORKSHOPS</span>
+              </div>
+              <p class="team-designation">Core Team • Obscura Collective</p>
+              <p class="team-bio">Curating editorial portrait workshops, studio model direction, and hands-on training sessions for rising photographers.</p>
+              <div class="team-specs">
+                <span class="spec-tag">Portraiture</span>
+                <span class="spec-tag">Editorial Direction</span>
+                <span class="spec-tag">Studio Workshops</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Gungun - Core Team -->
+          <div class="team-card" data-category="core">
+            <div class="team-img-wrapper">
+              <img src="assets/images/members/gungun_core_team.webp" alt="Gungun - Core Team" class="team-photo" loading="lazy" decoding="async">
+              <span class="team-role-badge badge-core">CORE TEAM</span>
+              <div class="team-overlay-telemetry">
+                <span>CORE ID: OBS-06</span>
+                <span>CURATION LEAD</span>
+              </div>
+            </div>
+            <div class="team-content">
+              <div class="team-header-row">
+                <h3 class="team-name">Gungun</h3>
+                <span class="team-sub-badge">CURATION</span>
+              </div>
+              <p class="team-designation">Core Team • Obscura Collective</p>
+              <p class="team-bio">Spearheading gallery curation, selecting award-winning stills, and organizing public exhibition showcases.</p>
+              <div class="team-specs">
+                <span class="spec-tag">Street Documentary</span>
+                <span class="spec-tag">Frame Curation</span>
+                <span class="spec-tag">Exhibition Design</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. Muskan - Core Team -->
+          <div class="team-card" data-category="core">
+            <div class="team-img-wrapper">
+              <img src="assets/images/members/muskan_core_team.webp" alt="Muskan - Core Team" class="team-photo" loading="lazy" decoding="async">
+              <span class="team-role-badge badge-core">CORE TEAM</span>
+              <div class="team-overlay-telemetry">
+                <span>CORE ID: OBS-07</span>
+                <span>POST-PROD LEAD</span>
+              </div>
+            </div>
+            <div class="team-content">
+              <div class="team-header-row">
+                <h3 class="team-name">Muskan</h3>
+                <span class="team-sub-badge">COLOR &amp; MEDIA</span>
+              </div>
+              <p class="team-designation">Core Team • Obscura Collective</p>
+              <p class="team-bio">Mastering digital darkroom workflows, color grading pipeline development, and collective community outreach.</p>
+              <div class="team-specs">
+                <span class="spec-tag">Color Grading</span>
+                <span class="spec-tag">Post-Production</span>
+                <span class="spec-tag">Community Outreach</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. Sarthak - Core Team -->
+          <div class="team-card" data-category="core">
+            <div class="team-img-wrapper">
+              <img src="assets/images/members/sarthak_core_team.webp" alt="Sarthak - Core Team" class="team-photo" loading="lazy" decoding="async">
+              <span class="team-role-badge badge-core">CORE TEAM</span>
+              <div class="team-overlay-telemetry">
+                <span>CORE ID: OBS-08</span>
+                <span>OPTICS LEAD</span>
+              </div>
+            </div>
+            <div class="team-content">
+              <div class="team-header-row">
+                <h3 class="team-name">Sarthak</h3>
+                <span class="team-sub-badge">TECHNICAL</span>
+              </div>
+              <p class="team-designation">Core Team • Obscura Collective</p>
+              <p class="team-bio">Specializing in astrophotography, night sky tracking, camera sensor physics, and optical calibration testing.</p>
+              <div class="team-specs">
+                <span class="spec-tag">Astrophotography</span>
+                <span class="spec-tag">Sensor Physics</span>
+                <span class="spec-tag">Technical Calibration</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 9. Bishwajit - Core Team -->
+          <div class="team-card" data-category="core">
+            <div class="team-img-wrapper">
+              <img src="assets/images/members/bishwajit_core_team.webp" alt="Bishwajit - Core Team" class="team-photo" loading="lazy" decoding="async">
+              <span class="team-role-badge badge-core">CORE TEAM</span>
+              <div class="team-overlay-telemetry">
+                <span>CORE ID: OBS-09</span>
+                <span>CINEMA &amp; LIGHT</span>
+              </div>
+            </div>
+            <div class="team-content">
+              <div class="team-header-row">
+                <h3 class="team-name">Bishwajit</h3>
+                <span class="team-sub-badge">CINEMA</span>
+              </div>
+              <p class="team-designation">Core Team • Obscura Collective</p>
+              <p class="team-bio">Focusing on cinematic camera movement, gimbal stabilization, high-contrast framing, and creative lighting design on set.</p>
+              <div class="team-specs">
+                <span class="spec-tag">Cinematography</span>
+                <span class="spec-tag">Set Lighting</span>
+                <span class="spec-tag">Gimbal Dynamics</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 10. Rainy - Core Team -->
+          <div class="team-card" data-category="core">
+            <div class="team-img-wrapper">
+              <img src="assets/images/members/rainy_core_team.webp" alt="Rainy - Core Team" class="team-photo" loading="lazy" decoding="async">
+              <span class="team-role-badge badge-core">CORE TEAM</span>
+              <div class="team-overlay-telemetry">
+                <span>CORE ID: OBS-10</span>
+                <span>CREATIVE EXPEDITIONS</span>
+              </div>
+            </div>
+            <div class="team-content">
+              <div class="team-header-row">
+                <h3 class="team-name">Rainy</h3>
+                <span class="team-sub-badge">CREATIVE LEAD</span>
+              </div>
+              <p class="team-designation">Core Team • Obscura Collective</p>
+              <p class="team-bio">Leading creative portrait expeditions, experimental visual aesthetics, and community engagement across all club initiatives.</p>
+              <div class="team-specs">
+                <span class="spec-tag">Creative Direction</span>
+                <span class="spec-tag">Visual Aesthetics</span>
+                <span class="spec-tag">Field Expeditions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel Pagination Indicator Dots -->
+      <div class="team-carousel-pagination" id="teamPaginationDots"></div>
+    </div>
+  </section>
+
+  <!-- 9. PRO EXIF LIGHTBOX MODAL -->
+  <div class="lightbox-modal" id="lightboxModal" role="dialog" aria-modal="true" aria-label="Photo Lightbox">
+    <button class="lightbox-close-btn" id="lightboxCloseBtn" aria-label="Close Lightbox">✕</button>
+    <button class="lightbox-nav-btn lightbox-nav-prev" id="lightboxPrevBtn" aria-label="Previous Photo">❮</button>
+    <button class="lightbox-nav-btn lightbox-nav-next" id="lightboxNextBtn" aria-label="Next Photo">❯</button>
+
+    <div class="lightbox-container">
+      <div class="lightbox-media-area">
+        <img src="" alt="Showcase Expanded Exposure" class="lightbox-main-img" id="lightboxMainImg">
+      </div>
+
+      <!-- EXIF HUD Telemetry Panel -->
+      <div class="lightbox-exif-panel">
+        <div>
+          <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; color: var(--accent-gold); margin-bottom: 6px;">
+            EXIF METADATA TELEMETRY
+          </div>
+          <h3 class="exif-title" id="lightboxTitle">Frame Title</h3>
+          <p id="lightboxCategory" style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent-gold); font-weight: 700;">Curated Exhibition Exposure</p>
+
+          <div class="exif-grid">
+            <div class="exif-box">
+              <span class="exif-tag">CAMERA BODY</span>
+              <div class="exif-val" id="exifCamera">Sony Alpha 7 IV</div>
+            </div>
+            <div class="exif-box">
+              <span class="exif-tag">LENS ATTACHED</span>
+              <div class="exif-val" id="exifLens">FE 85mm f/1.4 GM</div>
+            </div>
+            <div class="exif-box">
+              <span class="exif-tag">SHUTTER SPEED</span>
+              <div class="exif-val" id="exifShutter">1/500s</div>
+            </div>
+            <div class="exif-box">
+              <span class="exif-tag">APERTURE</span>
+              <div class="exif-val" id="exifAperture">f/1.4</div>
+            </div>
+            <div class="exif-box">
+              <span class="exif-tag">ISO SENSITIVITY</span>
+              <div class="exif-val" id="exifIso">ISO 100</div>
+            </div>
+            <div class="exif-box">
+              <span class="exif-tag">FOCAL LENGTH</span>
+              <div class="exif-val" id="exifFocal">85mm</div>
+            </div>
+            <div class="exif-box">
+              <span class="exif-tag">COLOR PROFILE</span>
+              <div class="exif-val" id="exifProfile">S-Cinetone</div>
+            </div>
+            <div class="exif-box">
+              <span class="exif-tag">LOCATION</span>
+              <div class="exif-val" id="exifLocation">Tokyo, Japan</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 12px; align-items: center; border-top: 1px solid var(--border-color); padding-top: 20px;">
+          <button class="btn btn-secondary btn-sm" id="lightboxLikeBtn" style="width: 100%;">
+            ♥ Like Exposure (<span id="lightboxLikeCount">142</span>)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. RSVP MODAL FOR PHOTOWALK -->
+  <div class="rsvp-modal" id="rsvpModal" role="dialog" aria-modal="true" aria-label="RSVP Modal">
+    <div class="rsvp-modal-card">
+      <button class="lightbox-close-btn" id="rsvpModalClose" style="top: 16px; right: 16px;">✕</button>
+      <span class="section-tag" style="margin-bottom: 12px;"><span class="pulse-dot"></span> INSTANT PASS</span>
+      <h3 style="font-size: 1.6rem; font-weight: 800; color: #ffffff; margin-bottom: 8px;">RSVP For September Shutter Expedition</h3>
+      <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 24px;">Join fellow creators on Saturday, Sept 26 at 10:00 AM.</p>
+
+      <form id="photowalkRsvpForm">
+        <div class="form-group">
+          <label for="rsvpName">Full Name</label>
+          <input type="text" id="rsvpName" class="form-input" placeholder="e.g. Jordan Cole" required>
+        </div>
+        <div class="form-group">
+          <label for="rsvpEmail">Email Address</label>
+          <input type="email" id="rsvpEmail" class="form-input" placeholder="jordan@domain.com" required>
+        </div>
+        <div class="form-group">
+          <label for="rsvpGear">What camera gear will you bring?</label>
+          <input type="text" id="rsvpGear" class="form-input" placeholder="e.g. Sony A7IV + 35mm f/1.4" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 12px;">
+          Confirm Spot &amp; Issue Pass
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 12. FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#hero" class="brand-logo">
+            <img src="assets/images/obscura_hero_transparent.png" alt="OBSCURA official logo" class="brand-logo-img">
+          </a>
+          <p>The premier collective for photography, videography, color science, and visual exploration.</p>
+          <div style="margin-top: 18px;">
+            <a href="https://www.instagram.com/obscura_sharda/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 8px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+              <span>Follow @obscura_sharda</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#showcase">Curated Showcase</a></li>
+            <li><a href="#photowalk">Photowalks</a></li>
+            <li><a href="#grading">Color Grading Lab</a></li>
+            <li><a href="#masterclass">Workshops</a></li>
+            <li><a href="#team">Leadership &amp; Team</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Social &amp; Community</h4>
+          <ul>
+            <li><a href="https://www.instagram.com/obscura_sharda/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; color: var(--accent-gold); font-weight: 700;">📸 Instagram (@obscura_sharda)</a></li>
+            <li><a href="#photowalk">Upcoming Photowalks</a></li>
+            <li><a href="#masterclass">Workshops &amp; Gear</a></li>
+            <li><a href="#team">Core Members</a></li>
+            <li><a href="#photowalk">Route Checkpoints</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Photowalk Dispatches</h4>
+          <p style="font-size: 0.88rem; margin-bottom: 16px;">Receive notifications for secret rooftop walks and gear drops.</p>
+          <form id="newsletterForm" style="display: flex; gap: 8px;">
+            <input type="email" class="form-input" placeholder="Your email address" required style="padding: 10px 14px; font-size: 0.85rem;">
+            <button type="submit" class="btn btn-primary btn-sm">Join</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 OBSCURA COLLECTIVE. ALL RIGHTS RESERVED.</span>
+        <span><a href="https://www.instagram.com/obscura_sharda/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">@obscura_sharda</a> • SHUTTER: 1/8000s • ISO 100 • RAW 14-BIT • KODAK 2383 EMULATION</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/viewfinder.js"></script>
+  <script src="js/carousel.js"></script>
+  <script src="js/photowalk.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/slider.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
